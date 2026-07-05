@@ -1,19 +1,45 @@
+---
+interface Props {
+	LuisBlog?: string;
+	description?: string;
+}
+
+const {
+	LuisBlog = "Luis Blog",
+	description = "Blog de Luis",
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<title>{LuisBlog}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Luis" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<meta property="og:title" content={LuisBlog} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Luis Blog" />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={LuisBlog} />
+		<meta name="twitter:description" content={description} />
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	@import "tailwindcss";
 	html,
 	body {
 		margin: 0;
