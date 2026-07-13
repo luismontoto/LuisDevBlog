@@ -1,49 +1,78 @@
 ---
 interface Props {
-	LuisBlog?: string;
+	title?: string;
 	description?: string;
 }
 
 const {
-	LuisBlog = "Luis Blog",
-	description = "Blog de Luis",
+	title = "Luis | Developer",
+	description = "Portfolio de Luis - Desarrollador de software",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 
-		<title>{LuisBlog}</title>
+		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="author" content="Luis" />
-		<meta name="theme-color" content="#ffffff" />
+		<meta name="theme-color" content="#0a0a0a" />
 
-		<meta property="og:title" content={LuisBlog} />
+		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Luis Blog" />
+		<meta property="og:site_name" content="Luis | Developer" />
 
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content={LuisBlog} />
+		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 	</head>
-	<body>
+	<body class="bg-[#0a0a0a] text-gray-200 font-sans antialiased">
 		<slot />
 	</body>
 </html>
 
 <style is:global>
 	@import "tailwindcss";
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+
+	@theme {
+		--font-sans: 'Inter', system-ui, sans-serif;
+		--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+		--color-accent: #6366f1;
+		--color-accent-light: #818cf8;
+		--color-surface: #111111;
+		--color-surface-light: #1a1a1a;
+		--color-border: #222222;
+	}
+
+	::selection {
+		background: var(--color-accent);
+		color: white;
+	}
+
+	::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--color-surface);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #333;
+		border-radius: 3px;
+	}
+
+	section {
+		scroll-margin-top: 80px;
 	}
 </style>
