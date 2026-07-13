@@ -1,0 +1,85 @@
+---
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+	<div class="absolute inset-0 bg-gradient-to-b from-[var(--color-accent)]/5 via-transparent to-transparent pointer-events-none"></div>
+	<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[var(--color-accent)]/5 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+	<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-3xl pointer-events-none"></div>
+
+	<div class="max-w-3xl mx-auto text-center relative z-10">
+		<p class="text-[var(--color-accent-light)] font-mono text-sm mb-4 tracking-wider uppercase animate-fade-in">Hello, I'm</p>
+		<h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight animate-fade-in-up">
+			Luis
+		</h1>
+		<p class="text-xl md:text-2xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
+			Developer passionate about building <span class="text-white font-medium">scalable applications</span> and solving complex problems with clean code.
+		</p>
+		<div class="flex items-center justify-center gap-4 animate-fade-in-up animation-delay-400">
+			<a
+				href="#projects"
+				class="px-6 py-3 bg-[var(--color-accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--color-accent-light)] transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-accent)]/20"
+			>
+				View Projects
+			</a>
+			<a
+				href="#contact"
+				class="px-6 py-3 border border-[var(--color-border)] text-gray-300 text-sm font-medium rounded-lg hover:border-gray-500 hover:text-white transition-all duration-200"
+			>
+				Get in Touch
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	@keyframes fade-in {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes fade-in-up {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-fade-in {
+		animation: fade-in 0.6s ease-out forwards;
+	}
+
+	.animate-fade-in-up {
+		animation: fade-in-up 0.6s ease-out forwards;
+		opacity: 0;
+	}
+
+	.animate-pulse-slow {
+		animation: pulse 4s ease-in-out infinite;
+	}
+
+	.animation-delay-200 {
+		animation-delay: 0.2s;
+	}
+
+	.animation-delay-400 {
+		animation-delay: 0.4s;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 0.5; }
+		50% { opacity: 0.8; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.animate-fade-in,
+		.animate-fade-in-up,
+		.animate-pulse-slow {
+			animation: none;
+			opacity: 1;
+		}
+	}
+</style>

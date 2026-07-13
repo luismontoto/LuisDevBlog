@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { getCollection, render } from 'astro:content';
+import { calculateReadingTime } from '../../lib/utils';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const readingTime = calculateReadingTime(post.body || '');
+---
+
+<Layout title={`${post.data.title} | Blog`} description={post.data.description} type="article">
+	<Navbar />
+
+	<article class="pt-32 pb-24 px-6 min-h-screen">
+		<div class="max-w-3xl mx-auto">
+			<a href="/blog" class="text-sm text-gray-500 hover:text-[var(--color-accent-light)] transition-colors mb-8 inline-flex items-center gap-1">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+				</svg>
+				Back to blog
+			</a>
+
+			<header class="mb-10">
+				<div class="flex items-center gap-3 text-xs font-mono text-gray-500 tracking-wider uppercase mb-3">
+					<time>
+						{new Date(post.data.pubDate).toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})}
+					</time>
+					<span class="text-gray-600">&middot;</span>
+					<span>{readingTime} min read</span>
+				</div>
+				<h1 class="text-3xl md:text-4xl font-bold text-white">
+					{post.data.title}
+				</h1>
+				<p class="text-gray-400 mt-3 leading-relaxed">
+					{post.data.description}
+				</p>
+				{post.data.tags.length > 0 && (
+					<div class="flex flex-wrap gap-2 mt-4">
+						{post.data.tags.map((tag) => (
+							<a
+								href={`/blog?tag=${tag}`}
+								class="px-2 py-0.5 text-xs font-mono text-gray-500 bg-[var(--color-surface)] border border-[var(--color-border)] rounded hover:border-[var(--color-accent)]/30 hover:text-gray-300 transition-colors"
+							>
+								{tag}
+							</a>
+						))}
+					</div>
+				)}
+			</header>
+
+			<div class="prose-custom">
+				<Content />
+			</div>
+
+			<footer class="mt-16 pt-8 border-t border-[var(--color-border)]">
+				<a href="/blog" class="text-sm text-gray-400 hover:text-[var(--color-accent-light)] transition-colors inline-flex items-center gap-1">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+					</svg>
+					All posts
+				</a>
+			</footer>
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.prose-custom {
+		color: #9ca3af;
+		line-height: 1.8;
+		font-size: 1rem;
+	}
+
+	.prose-custom :global(h1) {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #fff;
+		margin-top: 2em;
+		margin-bottom: 0.5em;
+	}
+
+	.prose-custom :global(h2) {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #fff;
+		margin-top: 2em;
+		margin-bottom: 0.5em;
+	}
+
+	.prose-custom :global(h3) {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #fff;
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
+	}
+
+	.prose-custom :global(p) {
+		margin-bottom: 1.25em;
+	}
+
+	.prose-custom :global(a) {
+		color: var(--color-accent-light);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.prose-custom :global(a:hover) {
+		color: #a5b4fc;
+	}
+
+	.prose-custom :global(strong) {
+		color: #fff;
+		font-weight: 600;
+	}
+
+	.prose-custom :global(em) {
+		color: #d1d5db;
+	}
+
+	.prose-custom :global(ul),
+	.prose-custom :global(ol) {
+		margin-bottom: 1.25em;
+		padding-left: 1.5em;
+	}
+
+	.prose-custom :global(li) {
+		margin-bottom: 0.5em;
+	}
+
+	.prose-custom :global(ul li) {
+		list-style-type: disc;
+	}
+
+	.prose-custom :global(ol li) {
+		list-style-type: decimal;
+	}
+
+	.prose-custom :global(blockquote) {
+		border-left: 3px solid var(--color-accent);
+		padding-left: 1em;
+		margin-bottom: 1.25em;
+		color: #d1d5db;
+		font-style: italic;
+	}
+
+	.prose-custom :global(code) {
+		font-family: var(--font-mono);
+		font-size: 0.875em;
+		background: var(--color-surface-light);
+		border: 1px solid var(--color-border);
+		border-radius: 4px;
+		padding: 0.15em 0.4em;
+		color: #e5e7eb;
+	}
+
+	.prose-custom :global(pre) {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: 8px;
+		padding: 1em 1.25em;
+		margin-bottom: 1.25em;
+		overflow-x: auto;
+	}
+
+	.prose-custom :global(pre code) {
+		background: none;
+		border: none;
+		padding: 0;
+		font-size: 0.85em;
+	}
+
+	.prose-custom :global(hr) {
+		border: none;
+		border-top: 1px solid var(--color-border);
+		margin: 2em 0;
+	}
+
+	.prose-custom :global(img) {
+		border-radius: 8px;
+		margin: 1.5em 0;
+	}
+</style>

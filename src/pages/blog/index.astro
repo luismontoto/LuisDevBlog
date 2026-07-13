@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../../lib/utils';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.map((post) => ({
+		...post,
+		readingTime: calculateReadingTime(post.body || ''),
+	}))
+	.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+const selectedTag = Astro.url.searchParams.get('tag');
+
+const filteredPosts = selectedTag
+	? posts.filter((post) => post.data.tags.includes(selectedTag))
+	: posts;
+---
+
+<Layout title="Blog | Luis" description="Ideas, progress, and thoughts from Luis">
+	<Navbar />
+
+	<section class="pt-32 pb-24 px-6 min-h-screen">
+		<div class="max-w-3xl mx-auto">
+			<h1 class="text-4xl font-bold text-white mb-2">
+				Blog<span class="text-[var(--color-accent)]">.</span>
+			</h1>
+			<div class="w-12 h-1 bg-[var(--color-accent)] rounded mb-4"></div>
+			<p class="text-gray-400 mb-8">Ideas, progress, and things I'm thinking about.</p>
+
+			{allTags.length > 0 && (
+				<div class="flex flex-wrap gap-2 mb-10">
+					<a
+						href="/blog"
+						class={`px-3 py-1 text-xs font-mono rounded-full transition-colors ${
+							!selectedTag
+								? 'bg-[var(--color-accent)] text-white'
+								: 'text-gray-500 bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 hover:text-gray-300'
+						}`}
+					>
+						All
+					</a>
+					{allTags.map((tag) => (
+						<a
+							href={`/blog?tag=${tag}`}
+							class={`px-3 py-1 text-xs font-mono rounded-full transition-colors ${
+								selectedTag === tag
+									? 'bg-[var(--color-accent)] text-white'
+									: 'text-gray-500 bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 hover:text-gray-300'
+							}`}
+						>
+							{tag}
+						</a>
+					))}
+				</div>
+			)}
+
+			{filteredPosts.length === 0 ? (
+				<p class="text-gray-500">No posts found{selectedTag && ` for "${selectedTag}"`}.</p>
+			) : (
+				<div class="space-y-8">
+					{filteredPosts.map((post) => (
+						<article class="group">
+							<a href={`/blog/${post.id}`} class="block">
+								<div class="flex items-center gap-3 text-xs font-mono text-gray-500 tracking-wider uppercase">
+									<time>
+										{new Date(post.data.pubDate).toLocaleDateString('en-US', {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric',
+										})}
+									</time>
+									<span class="text-gray-600">&middot;</span>
+									<span>{post.readingTime} min read</span>
+								</div>
+								<h2 class="text-xl font-semibold text-white mt-1 group-hover:text-[var(--color-accent-light)] transition-colors duration-200">
+									{post.data.title}
+								</h2>
+								<p class="text-gray-400 mt-2 leading-relaxed">
+									{post.data.description}
+								</p>
+								{post.data.tags.length > 0 && (
+									<div class="flex flex-wrap gap-2 mt-3">
+										{post.data.tags.map((tag) => (
+											<span class="px-2 py-0.5 text-xs font-mono text-gray-500 bg-[var(--color-surface)] border border-[var(--color-border)] rounded">
+												{tag}
+											</span>
+										))}
+									</div>
+								)}
+							</a>
+						</article>
+					))}
+				</div>
+			)}
+		</div>
+	</section>
+</Layout>

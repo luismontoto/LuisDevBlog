@@ -1,0 +1,30 @@
+---
+import { cv } from '../data/cv';
+---
+
+<section id="skills" class="py-24 px-6">
+	<div class="max-w-5xl mx-auto">
+		<h2 class="text-3xl font-bold text-white mb-2">
+			Skills<span class="text-[var(--color-accent)]">.</span>
+		</h2>
+		<div class="w-12 h-1 bg-[var(--color-accent)] rounded mb-10"></div>
+
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+			{cv.skills.map((skill) => (
+				<div class="p-5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/20 transition-colors duration-300">
+					<h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+						{skill.category}
+					</h3>
+					<ul class="space-y-2">
+						{skill.items.map((item) => (
+							<li class="text-sm text-gray-400 flex items-center gap-2">
+								<span class="w-1 h-1 bg-[var(--color-accent)] rounded-full shrink-0"></span>
+								{item}
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
