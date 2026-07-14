@@ -49,7 +49,7 @@ export const cv: CVData = {
 	education: [
 		{
 			institution: 'Ilerna, Sevilla',
-			degree: 'Desarrollo Web',
+			degree: 'Web Development',
 			period: '2024 - 2026',
 		},
 		{
@@ -63,16 +63,16 @@ export const cv: CVData = {
 			period: '2018 - 2020',
 		},
 		{
-			institution: 'Universidad de Sevilla',
-			degree: 'Ingeniería de Diseño Industrial',
+			institution: 'University of Seville',
+			degree: 'Industrial Design Engineering',
 			period: '2011 - 2018',
-			description: '60% de créditos completados',
+			description: '60% of credits completed',
 		},
 		{
-			institution: 'Universidad de Sevilla',
-			degree: 'Ingeniería Informática',
+			institution: 'University of Seville',
+			degree: 'Computer Engineering',
 			period: '2010',
-			description: 'Primer año',
+			description: 'First year',
 		},
 	],
 	skills: [
