@@ -34,7 +34,7 @@ export const cv: CVData = {
 	name: 'Luis',
 	title: 'Full-Stack Developer',
 	summary:
-		'Developer passionate about building scalable applications and solving complex problems with clean code. Experienced in full-stack development with a focus on data-driven applications.',
+		'Developer passionate about building scalable applications and solving complex problems with clean code. Full-stack development with a focus on data-driven applications.',
 	location: 'Spain',
 	email: 'luis@example.com',
 	experience: [
