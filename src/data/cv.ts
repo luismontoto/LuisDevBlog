@@ -39,28 +39,40 @@ export const cv: CVData = {
 	email: 'luis@example.com',
 	experience: [
 		{
-			company: 'Company Name',
-			role: 'Full-Stack Developer',
-			period: '2024 - Present',
-			description:
-				'Building web applications with modern technologies. Focus on performance, accessibility, and user experience.',
-			technologies: ['TypeScript', 'React', 'Node.js', 'PostgreSQL'],
-		},
-		{
-			company: 'Previous Company',
-			role: 'Backend Developer',
-			period: '2022 - 2024',
-			description:
-				'Developed APIs and backend services. Implemented data pipelines and analytics tools.',
-			technologies: ['Python', 'FastAPI', 'MongoDB', 'Docker'],
+			company: 'LeanMind',
+			role: 'Intern',
+			period: 'Mar 2026 - Jul 2026',
+			description: 'Internship experience.',
+			technologies: [],
 		},
 	],
 	education: [
 		{
-			institution: 'University Name',
-			degree: 'Computer Science',
-			period: '2018 - 2022',
-			description: 'Focus on software engineering and data structures.',
+			institution: 'Ilerna, Sevilla',
+			degree: 'Desarrollo Web',
+			period: '2024 - 2026',
+		},
+		{
+			institution: 'AnimationMentor, USA (online)',
+			degree: '3D Cinema Specialization',
+			period: '2020 - 2022',
+		},
+		{
+			institution: 'EUSA, Sevilla',
+			degree: '2D/3D Animation and Interactive Environment',
+			period: '2018 - 2020',
+		},
+		{
+			institution: 'Universidad de Sevilla',
+			degree: 'Ingeniería de Diseño Industrial',
+			period: '2011 - 2018',
+			description: '60% de créditos completados',
+		},
+		{
+			institution: 'Universidad de Sevilla',
+			degree: 'Ingeniería Informática',
+			period: '2010',
+			description: 'Primer año',
 		},
 	],
 	skills: [
